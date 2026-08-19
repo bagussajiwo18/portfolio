@@ -1019,16 +1019,50 @@ footer {
 /* ==========================================================================
    Responsive Styles
    ========================================================================== */
-/* ===== 1024px: tablet landscape ===== */
+/* ===== 1024px: tablet landscape / desktop mode on phone ===== */
 @media (max-width: 1024px) {
+  /* ROOT FIX: remove fixed 100vh height so content drives the height naturally */
+  .hero {
+    min-height: auto;
+    align-items: flex-start;
+    padding-top: 110px;
+    padding-bottom: 60px;
+  }
+
+  /* Scale down the huge decorative glow blobs */
+  .glow-1 {
+    width: 380px;
+    height: 380px;
+    top: -60px;
+    left: -60px;
+  }
+
+  .glow-2 {
+    width: 320px;
+    height: 320px;
+    top: 5%;
+    right: -60px;
+  }
+
+  .glow-3 {
+    width: 280px;
+    height: 280px;
+  }
+
+  .hero-blue-semicircle {
+    width: 500px;
+    height: 250px;
+    top: 8%;
+  }
+
   .hero-main-content {
-    grid-template-columns: 1fr minmax(220px, 300px) 1fr;
+    grid-template-columns: 1fr minmax(200px, 280px) 1fr;
     gap: 12px;
-    min-height: 380px;
+    min-height: unset;
   }
 
   .hero-portrait-img {
-    max-height: 460px;
+    max-height: 420px;
   }
 
   .hero-bio-block {
@@ -1040,16 +1074,20 @@ footer {
   }
 }
 
-/* ===== 900px: typical desktop mode on phone (980px viewport squeezed) ===== */
+/* ===== 960px: tighter desktop mode on phone ===== */
 @media (max-width: 960px) {
+  .hero {
+    padding-top: 100px;
+    padding-bottom: 50px;
+  }
+
   .hero-main-content {
-    grid-template-columns: 1fr minmax(200px, 280px) 1fr;
-    gap: 10px;
-    min-height: 340px;
+    grid-template-columns: 1fr minmax(180px, 240px) 1fr;
+    gap: 8px;
   }
 
   .hero-portrait-img {
-    max-height: 400px;
+    max-height: 360px;
   }
 
   .hero-trust-badge {
@@ -1058,18 +1096,19 @@ footer {
   }
 
   .hero-bio-block {
-    max-width: 200px;
+    max-width: 190px;
     margin-bottom: 16px;
   }
 
   .bio-text {
-    font-size: 0.82rem;
-    margin-bottom: 16px;
+    font-size: 0.8rem;
+    margin-bottom: 14px;
   }
 
   .btn-dark-pill {
-    padding: 10px 20px;
-    font-size: 0.85rem;
+    padding: 10px 18px;
+    font-size: 0.82rem;
+    gap: 8px;
   }
 }
 
