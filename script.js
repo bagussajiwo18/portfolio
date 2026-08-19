@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   menuToggle.addEventListener('click', () => {
     const isOpen = navMenu.classList.toggle('active');
     menuToggle.classList.toggle('active', isOpen);
-    menuToggle.setAttribute('aria-expanded', isOpen);
+    menuToggle.setAttribute('aria-expanded', String(isOpen));
   });
 
   navLinks.forEach(link => {
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ── Scroll Handler (RAF-throttled for smooth perf) ──────────────────────
+  // ── Scroll Handler (RAF-throttled for buttery perf) ─────────────────────
   let rafPending = false;
 
   function onScroll() {
@@ -28,10 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
     rafPending = true;
 
     requestAnimationFrame(() => {
-      // Header scroll class
+      // Header glass effect on scroll
       header.classList.toggle('scrolled', window.scrollY > 50);
 
-      // Active nav link
+      // Active nav link based on current section
       let current = '';
       sections.forEach(section => {
         if (window.scrollY >= section.offsetTop - 160) {
@@ -40,30 +40,40 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       navLinks.forEach(link => {
-        const isActive = link.getAttribute('href').slice(1) === current;
-        link.classList.toggle('active', isActive);
+        link.classList.toggle('active', link.getAttribute('href').slice(1) === current);
       });
 
       rafPending = false;
     });
   }
 
-  // passive:true tells the browser we never call preventDefault → smoother scrolling
+  // passive:true → browser can optimise scrolling without waiting for JS
   window.addEventListener('scroll', onScroll, { passive: true });
 
   // ── Scroll Reveal (IntersectionObserver) ────────────────────────────────
+  // Watches every [data-reveal] element and adds .is-visible when in view.
+  // Stagger delays are handled entirely in CSS via data-reveal-delay.
+
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
   const revealObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
-      entry.target.classList.add('active');
-      observer.unobserve(entry.target);   // fire once, then detach
+
+      const el = entry.target;
+      el.classList.add('is-visible');
+      observer.unobserve(el); // fire once → detach to save memory
     });
   }, {
-    threshold: 0.08,
-    rootMargin: '0px 0px -40px 0px'
+    // Trigger slightly before element reaches the viewport on desktop,
+    // but immediately on mobile (less headroom needed)
+    threshold: isMobile ? 0.05 : 0.1,
+    rootMargin: isMobile ? '0px 0px -20px 0px' : '0px 0px -40px 0px'
   });
 
-  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  document.querySelectorAll('[data-reveal]').forEach(el => {
+    revealObserver.observe(el);
+  });
 
   // ── Portfolio Filter ─────────────────────────────────────────────────────
   const filterBtns      = document.querySelectorAll('.filter-btn');
@@ -76,23 +86,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const filter = btn.getAttribute('data-filter');
 
-      portofolioCards.forEach(card => {
+      portofolioCards.forEach((card, i) => {
         const match = filter === 'all' || card.getAttribute('data-category') === filter;
 
         if (match) {
-          // Bring back: reset display first, then fade in via rAF
           card.style.display = '';
-          // Force reflow in a single rAF so transition fires cleanly
+          // Stagger based on visible index (i * 60ms, max 300ms)
+          const delay = Math.min(i * 60, 300);
           requestAnimationFrame(() => {
-            card.style.transition = 'opacity 0.3s cubic-bezier(0.22,1,0.36,1), transform 0.3s cubic-bezier(0.22,1,0.36,1)';
+            card.style.transition = `opacity 0.35s cubic-bezier(0.22,1,0.36,1) ${delay}ms, transform 0.35s cubic-bezier(0.22,1,0.36,1) ${delay}ms`;
             card.style.opacity    = '1';
             card.style.transform  = 'translateY(0)';
           });
         } else {
           card.style.transition = 'opacity 0.18s cubic-bezier(0.4,0,0.2,1)';
           card.style.opacity    = '0';
-          card.style.transform  = 'translateY(8px)';
-          // Hide after fade completes (match the 180ms transition)
+          card.style.transform  = 'translateY(6px)';
           const onEnd = () => {
             card.style.display = 'none';
             card.removeEventListener('transitionend', onEnd);
