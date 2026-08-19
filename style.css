@@ -981,24 +981,78 @@ footer {
 
 
 /* ==========================================================================
-   Animations & Entrance
+   Animations & Entrance System
    ========================================================================== */
-.reveal {
-  opacity: 0;
-  transform: translateY(22px);
-  /* Shorter distance + snappier curve = feels lighter */
-  transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out);
-  will-change: opacity, transform;
+
+/* ── Hero Page-Load Entrance (CSS keyframes, no JS needed) ──────────────── */
+@keyframes entranceUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.reveal.active {
+@keyframes entranceLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes entranceRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Hero elements animate in on page load using data-entrance + data-entrance-delay */
+.hero-entrance {
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-duration: 0.65s;
+}
+
+.hero-entrance[data-entrance="up"]    { animation-name: entranceUp; }
+.hero-entrance[data-entrance="left"]  { animation-name: entranceLeft; }
+.hero-entrance[data-entrance="right"] { animation-name: entranceRight; }
+
+.hero-entrance[data-entrance-delay="0"]   { animation-delay: 0.05s; }
+.hero-entrance[data-entrance-delay="150"] { animation-delay: 0.20s; }
+.hero-entrance[data-entrance-delay="300"] { animation-delay: 0.35s; }
+
+
+/* ── Scroll Reveal System (IntersectionObserver triggers .is-visible) ────── */
+
+/* Base: hidden state for all reveal variants */
+[data-reveal] {
+  will-change: opacity, transform;
+  transition-property: opacity, transform;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  transition-duration: 0.52s;
+}
+
+/* Directional variants */
+[data-reveal="up"]    { opacity: 0; transform: translateY(18px); }
+[data-reveal="left"]  { opacity: 0; transform: translateX(-18px); }
+[data-reveal="right"] { opacity: 0; transform: translateX(18px); }
+[data-reveal="scale"] { opacity: 0; transform: scale(0.9); }
+[data-reveal="fade"]  { opacity: 0; transform: none; }
+
+/* Visible state: GPU-composited final values */
+[data-reveal].is-visible {
   opacity: 1;
   transform: translateY(0) translateZ(0);
 }
 
-/* ============================================================
-   prefers-reduced-motion: disable or simplify all animations
-   ============================================================ */
+/* Stagger delays (applied inline from JS or via data-reveal-delay) */
+[data-reveal-delay="0"]   { transition-delay: 0ms; }
+[data-reveal-delay="60"]  { transition-delay: 60ms; }
+[data-reveal-delay="80"]  { transition-delay: 80ms; }
+[data-reveal-delay="100"] { transition-delay: 100ms; }
+[data-reveal-delay="120"] { transition-delay: 120ms; }
+[data-reveal-delay="160"] { transition-delay: 160ms; }
+[data-reveal-delay="180"] { transition-delay: 180ms; }
+[data-reveal-delay="240"] { transition-delay: 240ms; }
+[data-reveal-delay="320"] { transition-delay: 320ms; }
+[data-reveal-delay="400"] { transition-delay: 400ms; }
+
+
+/* ── prefers-reduced-motion: disable all animations ─────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -1009,9 +1063,13 @@ footer {
     scroll-behavior: auto !important;
   }
 
-  .reveal {
-    opacity: 1;
-    transform: none;
+  /* Immediately show all animated elements */
+  [data-reveal],
+  .hero-entrance {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
   }
 }
 
@@ -1246,9 +1304,31 @@ footer {
     will-change: auto;
   }
 
-  /* Lighter reveal animation on mobile */
-  .reveal {
-    transform: translateY(14px);
-    transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+  /* Lighter scroll reveal on mobile: smaller distance, faster, shorter stagger */
+  [data-reveal="up"]    { transform: translateY(10px); }
+  [data-reveal="left"]  { transform: translateX(-10px); }
+  [data-reveal="right"] { transform: translateX(10px); }
+  [data-reveal="scale"] { transform: scale(0.94); }
+
+  [data-reveal] {
+    transition-duration: 0.38s;
   }
+
+  /* Halve stagger delays on mobile so groups appear faster */
+  [data-reveal-delay="80"]  { transition-delay: 40ms; }
+  [data-reveal-delay="100"] { transition-delay: 50ms; }
+  [data-reveal-delay="120"] { transition-delay: 60ms; }
+  [data-reveal-delay="160"] { transition-delay: 80ms; }
+  [data-reveal-delay="180"] { transition-delay: 90ms; }
+  [data-reveal-delay="240"] { transition-delay: 120ms; }
+  [data-reveal-delay="320"] { transition-delay: 160ms; }
+  [data-reveal-delay="400"] { transition-delay: 200ms; }
+
+  /* Hero entrance: tighter on mobile */
+  .hero-entrance {
+    animation-duration: 0.5s;
+  }
+
+  .hero-entrance[data-entrance-delay="150"] { animation-delay: 0.12s; }
+  .hero-entrance[data-entrance-delay="300"] { animation-delay: 0.24s; }
 }
