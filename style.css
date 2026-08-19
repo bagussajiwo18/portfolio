@@ -21,7 +21,11 @@
   --radius-md: 16px;
   --radius-sm: 8px;
   --radius-pill: 50px;
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* GPU-friendly easing curves */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-fast: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.18s cubic-bezier(0.22, 1, 0.36, 1);
   --font-heading: 'Outfit', 'Plus Jakarta Sans', sans-serif;
   --font-serif: 'Instrument Serif', 'Playfair Display', Georgia, serif;
   --font-body: 'Plus Jakarta Sans', sans-serif;
@@ -57,7 +61,7 @@ h6 {
 a {
   text-decoration: none;
   color: inherit;
-  transition: var(--transition);
+  transition: color 0.22s var(--ease-out), opacity 0.22s var(--ease-out);
 }
 
 img {
@@ -160,7 +164,8 @@ header {
   z-index: 1000;
   box-shadow: var(--shadow-nav);
   border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-  transition: var(--transition);
+  transition: background-color 0.3s var(--ease-in-out), box-shadow 0.3s var(--ease-in-out);
+  will-change: transform;
 }
 
 header.scrolled {
@@ -200,6 +205,7 @@ header.scrolled {
   color: var(--text-secondary);
   position: relative;
   padding: 8px 0;
+  transition: color 0.22s var(--ease-out);
 }
 
 .nav-link:hover,
@@ -216,7 +222,8 @@ header.scrolled {
   width: 0;
   height: 2px;
   background-color: var(--text-primary);
-  transition: var(--transition);
+  transition: width 0.25s var(--ease-out);
+  transform: translateZ(0);
 }
 
 .nav-link:hover::after,
@@ -239,7 +246,9 @@ header.scrolled {
   height: 3px;
   background-color: var(--text-primary);
   border-radius: 2px;
-  transition: var(--transition);
+  transition: transform 0.25s var(--ease-out), opacity 0.25s var(--ease-out);
+  transform-origin: center;
+  will-change: transform;
 }
 
 /* ==========================================================================
@@ -349,13 +358,13 @@ header.scrolled {
 /* Hero Main Content Area with Floating Badges and Centered Portrait */
 .hero-main-content {
   display: grid;
-  grid-template-columns: 1fr 420px 1fr;
+  grid-template-columns: 1fr minmax(260px, 420px) 1fr;
   align-items: end;
   width: 100%;
-  gap: 20px;
+  gap: 16px;
   position: relative;
   margin-top: 10px;
-  min-height: 480px;
+  min-height: 420px;
 }
 
 /* Floating Status Badge (Top Left) */
@@ -384,23 +393,31 @@ header.scrolled {
   height: 10px;
   border-radius: 50%;
   background-color: #A3E635;
-  box-shadow: 0 0 0 0 rgba(163, 230, 53, 0.7);
-  animation: pulse-dot 2s infinite;
+  position: relative;
+  animation: pulse-dot 2.2s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Use ::after pseudo for the ring so box-shadow stays off the element */
+.status-pulse-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-color: rgba(163, 230, 53, 0.5);
+  animation: pulse-ring 2.2s ease-in-out infinite;
+  will-change: transform, opacity;
 }
 
 @keyframes pulse-dot {
-  0% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(163, 230, 53, 0.7);
-  }
-  70% {
-    transform: scale(1);
-    box-shadow: 0 0 0 10px rgba(163, 230, 53, 0);
-  }
-  100% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(163, 230, 53, 0);
-  }
+  0%, 100% { transform: scale(0.95); }
+  50%       { transform: scale(1.05); }
+}
+
+@keyframes pulse-ring {
+  0%   { transform: scale(0.9);  opacity: 0.7; }
+  70%  { transform: scale(2.2);  opacity: 0; }
+  100% { transform: scale(0.9);  opacity: 0; }
 }
 
 /* Center Portrait Container & Mask */
@@ -529,23 +546,24 @@ header.scrolled {
   font-weight: 600;
   font-size: 0.95rem;
   font-family: var(--font-heading);
-  transition: var(--transition);
+  transition: transform 0.28s var(--ease-out), background-color 0.22s var(--ease-out);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  will-change: transform;
 }
 
 .btn-dark-pill:hover {
   background-color: #333333;
-  transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
 }
 
 .btn-arrow {
-  transition: transform 0.3s ease;
+  transition: transform 0.25s var(--ease-out);
+  will-change: transform;
 }
 
 .btn-dark-pill:hover .btn-arrow {
-  transform: translateX(4px);
+  transform: translateX(5px);
 }
 
 
@@ -650,13 +668,13 @@ header.scrolled {
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-soft);
-  transition: var(--transition);
+  transition: transform 0.32s var(--ease-out);
   border: 1px solid rgba(0, 0, 0, 0.05);
+  will-change: transform;
 }
 
 .portofolio-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  transform: translateY(-6px) translateZ(0);
 }
 
 .portofolio-img {
@@ -677,8 +695,9 @@ header.scrolled {
   left: 12px;
   z-index: 5;
   background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  /* blur removed on mobile via media query for perf */
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   color: var(--color-blue-main);
   font-size: 0.72rem;
   font-weight: 700;
@@ -694,11 +713,12 @@ header.scrolled {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: var(--transition);
+  transition: transform 0.4s var(--ease-out);
+  will-change: transform;
 }
 
 .portofolio-card:hover .portofolio-img img {
-  transform: scale(1.05);
+  transform: scale(1.06) translateZ(0);
 }
 
 .portofolio-info {
@@ -763,14 +783,14 @@ header.scrolled {
   align-items: center;
   justify-content: center;
   box-shadow: var(--shadow-soft);
-  transition: var(--transition);
+  transition: transform 0.28s var(--ease-out);
   padding: 20px;
   border: 1px solid rgba(0, 0, 0, 0.05);
+  will-change: transform;
 }
 
 .education-logo-container:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+  transform: translateY(-5px) translateZ(0);
 }
 
 .education-logo-container img {
@@ -808,14 +828,14 @@ header.scrolled {
   align-items: center;
   justify-content: center;
   box-shadow: var(--shadow-soft);
-  transition: var(--transition);
+  transition: transform 0.28s var(--ease-out);
   padding: 24px;
   border: 1px solid rgba(0, 0, 0, 0.05);
+  will-change: transform;
 }
 
 .experience-logo-container:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+  transform: translateY(-5px) translateZ(0);
 }
 
 .experience-logo img {
@@ -854,16 +874,16 @@ header.scrolled {
   align-items: center;
   justify-content: center;
   box-shadow: var(--shadow-soft);
-  transition: var(--transition);
+  transition: transform 0.28s var(--ease-out), background-color 0.22s var(--ease-out), color 0.22s var(--ease-out);
   color: var(--text-primary);
   border: 1px solid rgba(0, 0, 0, 0.05);
+  will-change: transform;
 }
 
 .social-icon:hover {
   background-color: #1E1E1E;
   color: #FFFFFF;
-  transform: translateY(-4px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+  transform: translateY(-5px) translateZ(0);
 }
 
 .social-icon svg {
@@ -965,22 +985,54 @@ footer {
    ========================================================================== */
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(22px);
+  /* Shorter distance + snappier curve = feels lighter */
+  transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out);
+  will-change: opacity, transform;
 }
 
 .reveal.active {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) translateZ(0);
+}
+
+/* ============================================================
+   prefers-reduced-motion: disable or simplify all animations
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 
 /* ==========================================================================
    Responsive Styles
    ========================================================================== */
+/* ===== 1024px: tablet landscape ===== */
 @media (max-width: 1024px) {
   .hero-main-content {
-    grid-template-columns: 1fr 300px 1fr;
+    grid-template-columns: 1fr minmax(220px, 300px) 1fr;
+    gap: 12px;
+    min-height: 380px;
+  }
+
+  .hero-portrait-img {
+    max-height: 460px;
+  }
+
+  .hero-bio-block {
+    max-width: 240px;
   }
 
   .portofolio-grid {
@@ -988,11 +1040,46 @@ footer {
   }
 }
 
+/* ===== 900px: typical desktop mode on phone (980px viewport squeezed) ===== */
+@media (max-width: 960px) {
+  .hero-main-content {
+    grid-template-columns: 1fr minmax(200px, 280px) 1fr;
+    gap: 10px;
+    min-height: 340px;
+  }
+
+  .hero-portrait-img {
+    max-height: 400px;
+  }
+
+  .hero-trust-badge {
+    padding: 8px 14px 8px 10px;
+    gap: 10px;
+  }
+
+  .hero-bio-block {
+    max-width: 200px;
+    margin-bottom: 16px;
+  }
+
+  .bio-text {
+    font-size: 0.82rem;
+    margin-bottom: 16px;
+  }
+
+  .btn-dark-pill {
+    padding: 10px 20px;
+    font-size: 0.85rem;
+  }
+}
+
+/* ===== 868px: switch to single-column layout ===== */
 @media (max-width: 868px) {
   .hero-main-content {
     grid-template-columns: 1fr;
     gap: 30px;
     margin-top: 20px;
+    min-height: unset;
   }
 
   .hero-badge-status {
@@ -1004,6 +1091,10 @@ footer {
   .hero-portrait-wrapper {
     grid-column: 1;
     max-width: 300px;
+  }
+
+  .hero-portrait-img {
+    max-height: 360px;
   }
 
   .hero-trust-badge {
@@ -1022,6 +1113,7 @@ footer {
   }
 }
 
+/* ===== 768px: mobile ===== */
 @media (max-width: 768px) {
   section {
     padding: 80px 0;
@@ -1045,8 +1137,10 @@ footer {
     flex-direction: column;
     align-items: center;
     padding: 40px 0;
-    transition: var(--transition);
+    /* Only animate left — cheaper than all */
+    transition: left 0.3s cubic-bezier(0.22, 1, 0.36, 1);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    z-index: 999;
   }
 
   .nav-menu.active {
@@ -1063,6 +1157,7 @@ footer {
   }
 }
 
+/* ===== 480px: small phones ===== */
 @media (max-width: 480px) {
   .hero-serif-subtitle {
     font-size: 2.5rem;
@@ -1074,5 +1169,47 @@ footer {
 
   .about-text {
     padding: 28px 20px;
+  }
+}
+
+/* ===== Mobile performance: disable expensive GPU effects on small screens ===== */
+@media (max-width: 768px) {
+  /* Disable heavy backdrop-filter blurs → big perf win on mid-range phones */
+  .hero-trust-badge,
+  header {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .portofolio-label {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(255, 255, 255, 0.97);
+  }
+
+  /* Simplify hero glow blobs (reduce blur radius) */
+  .glow-1, .glow-2, .glow-3 {
+    filter: blur(25px);
+    opacity: 0.5;
+  }
+
+  .hero-blue-semicircle {
+    filter: blur(30px);
+    opacity: 0.6;
+  }
+
+  /* Hover effects don't apply on touch — remove will-change to free memory */
+  .portofolio-card,
+  .education-logo-container,
+  .experience-logo-container,
+  .social-icon,
+  .btn-dark-pill {
+    will-change: auto;
+  }
+
+  /* Lighter reveal animation on mobile */
+  .reveal {
+    transform: translateY(14px);
+    transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
   }
 }
