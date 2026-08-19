@@ -165,6 +165,7 @@ header {
   box-shadow: var(--shadow-nav);
   border-bottom: 1px solid rgba(0, 0, 0, 0.04);
   transition: background-color 0.3s var(--ease-in-out), box-shadow 0.3s var(--ease-in-out);
+  animation: entranceDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
   will-change: transform;
 }
 
@@ -271,6 +272,7 @@ header.scrolled {
   border-radius: 50%;
   pointer-events: none;
   z-index: 1;
+  animation: entranceFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .glow-1 {
@@ -317,6 +319,7 @@ header.scrolled {
   opacity: 0.85;
   pointer-events: none;
   z-index: 2;
+  animation: entranceFadeIn 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .hero-container {
@@ -370,6 +373,7 @@ header.scrolled {
 /* Floating Status Badge (Top Left) */
 .hero-badge-status {
   grid-column: 1 / 2;
+  grid-row: 1;
   align-self: start;
   justify-self: start;
   display: inline-flex;
@@ -423,6 +427,7 @@ header.scrolled {
 /* Center Portrait Container & Mask */
 .hero-portrait-wrapper {
   grid-column: 2 / 3;
+  grid-row: 1;
   position: relative;
   width: 100%;
   max-width: 480px;
@@ -458,6 +463,7 @@ header.scrolled {
 /* Floating Trust Badge (Bottom Left) */
 .hero-trust-badge {
   grid-column: 1 / 2;
+  grid-row: 1;
   align-self: end;
   justify-self: start;
   display: flex;
@@ -515,24 +521,31 @@ header.scrolled {
   color: var(--text-primary);
 }
 
-/* Floating Bio Block & Dark Pill Button (Bottom Right) */
-.hero-bio-block {
+/* Floating Bio Description (Middle Right) */
+.hero-bio-desc {
   grid-column: 3 / 4;
-  align-self: end;
-  justify-self: end;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  grid-row: 1;
+  align-self: center;
+  justify-self: start;
   text-align: left;
   max-width: 320px;
-  margin-bottom: 20px;
+  padding-left: 12px;
 }
 
 .bio-text {
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 24px;
+  line-height: 1.65;
+  margin-bottom: 0;
+}
+
+/* Floating Dark Pill Button (Bottom Right) */
+.hero-cta-wrapper {
+  grid-column: 3 / 4;
+  grid-row: 1;
+  align-self: end;
+  justify-self: end;
+  margin-bottom: 20px;
 }
 
 .btn-dark-pill {
@@ -984,36 +997,80 @@ footer {
    Animations & Entrance System
    ========================================================================== */
 
-/* ── Hero Page-Load Entrance (CSS keyframes, no JS needed) ──────────────── */
+/* ── Hero Page-Load Entrance (CSS keyframes, GPU accelerated, buttery smooth) ── */
+@keyframes entranceFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
 @keyframes entranceUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes entranceDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -12px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 @keyframes entranceLeft {
-  from { opacity: 0; transform: translateX(-20px); }
-  to   { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translate3d(-16px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 @keyframes entranceRight {
-  from { opacity: 0; transform: translateX(20px); }
-  to   { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translate3d(16px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
-/* Hero elements animate in on page load using data-entrance + data-entrance-delay */
+/* Hero elements animate in smoothly on page load using data-entrance + data-entrance-delay */
 .hero-entrance {
   animation-fill-mode: both;
-  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-  animation-duration: 0.65s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-duration: 0.85s;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: opacity, transform;
 }
 
+.hero-entrance[data-entrance="fade"]  { animation-name: entranceFadeIn; }
 .hero-entrance[data-entrance="up"]    { animation-name: entranceUp; }
+.hero-entrance[data-entrance="down"]  { animation-name: entranceDown; }
 .hero-entrance[data-entrance="left"]  { animation-name: entranceLeft; }
 .hero-entrance[data-entrance="right"] { animation-name: entranceRight; }
 
-.hero-entrance[data-entrance-delay="0"]   { animation-delay: 0.05s; }
-.hero-entrance[data-entrance-delay="150"] { animation-delay: 0.20s; }
-.hero-entrance[data-entrance-delay="300"] { animation-delay: 0.35s; }
+.hero-entrance[data-entrance-delay="0"]   { animation-delay: 0.08s; }
+.hero-entrance[data-entrance-delay="100"] { animation-delay: 0.16s; }
+.hero-entrance[data-entrance-delay="150"] { animation-delay: 0.22s; }
+.hero-entrance[data-entrance-delay="200"] { animation-delay: 0.28s; }
+.hero-entrance[data-entrance-delay="250"] { animation-delay: 0.34s; }
+.hero-entrance[data-entrance-delay="300"] { animation-delay: 0.40s; }
+.hero-entrance[data-entrance-delay="350"] { animation-delay: 0.48s; }
+.hero-entrance[data-entrance-delay="400"] { animation-delay: 0.54s; }
 
 
 /* ── Scroll Reveal System (IntersectionObserver triggers .is-visible) ────── */
@@ -1123,8 +1180,9 @@ footer {
     max-height: 420px;
   }
 
-  .hero-bio-block {
+  .hero-bio-desc {
     max-width: 240px;
+    padding-left: 0;
   }
 
   .portofolio-grid {
@@ -1153,14 +1211,17 @@ footer {
     gap: 10px;
   }
 
-  .hero-bio-block {
-    max-width: 190px;
-    margin-bottom: 16px;
+  .hero-bio-desc {
+    max-width: 200px;
+    padding-left: 0;
   }
 
   .bio-text {
-    font-size: 0.8rem;
-    margin-bottom: 14px;
+    font-size: 0.82rem;
+  }
+
+  .hero-cta-wrapper {
+    margin-bottom: 16px;
   }
 
   .btn-dark-pill {
@@ -1174,39 +1235,55 @@ footer {
 @media (max-width: 868px) {
   .hero-main-content {
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 24px;
     margin-top: 20px;
     min-height: unset;
   }
 
   .hero-badge-status {
     grid-column: 1;
+    grid-row: auto;
     justify-self: center;
     margin-top: 0;
+    order: 1;
   }
 
   .hero-portrait-wrapper {
     grid-column: 1;
+    grid-row: auto;
     max-width: 300px;
+    order: 2;
   }
 
   .hero-portrait-img {
     max-height: 360px;
   }
 
-  .hero-trust-badge {
+  .hero-bio-desc {
     grid-column: 1;
+    grid-row: auto;
     justify-self: center;
-    margin-bottom: 0;
-  }
-
-  .hero-bio-block {
-    grid-column: 1;
-    justify-self: center;
-    align-items: center;
     text-align: center;
     max-width: 500px;
+    padding-left: 0;
+    margin: 0;
+    order: 3;
+  }
+
+  .hero-cta-wrapper {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: center;
     margin-bottom: 0;
+    order: 4;
+  }
+
+  .hero-trust-badge {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: center;
+    margin-bottom: 0;
+    order: 5;
   }
 }
 
@@ -1324,11 +1401,17 @@ footer {
   [data-reveal-delay="320"] { transition-delay: 160ms; }
   [data-reveal-delay="400"] { transition-delay: 200ms; }
 
-  /* Hero entrance: tighter on mobile */
+  /* Hero entrance: smooth & lightweight on mobile */
   .hero-entrance {
-    animation-duration: 0.5s;
+    animation-duration: 0.7s;
   }
 
-  .hero-entrance[data-entrance-delay="150"] { animation-delay: 0.12s; }
-  .hero-entrance[data-entrance-delay="300"] { animation-delay: 0.24s; }
+  .hero-entrance[data-entrance-delay="0"]   { animation-delay: 0.05s; }
+  .hero-entrance[data-entrance-delay="100"] { animation-delay: 0.10s; }
+  .hero-entrance[data-entrance-delay="150"] { animation-delay: 0.15s; }
+  .hero-entrance[data-entrance-delay="200"] { animation-delay: 0.20s; }
+  .hero-entrance[data-entrance-delay="250"] { animation-delay: 0.25s; }
+  .hero-entrance[data-entrance-delay="300"] { animation-delay: 0.30s; }
+  .hero-entrance[data-entrance-delay="350"] { animation-delay: 0.35s; }
+  .hero-entrance[data-entrance-delay="400"] { animation-delay: 0.40s; }
 }
