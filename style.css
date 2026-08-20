@@ -736,6 +736,118 @@ header.scrolled {
   margin-top: 32px;
 }
 
+/* ── Tab Navigation (Segmented Control) ── */
+.porto-tabs {
+  display: inline-flex;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 36px;
+  background: #FFFFFF;
+  border-radius: var(--radius-pill);
+  padding: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  /* Center the pill horizontally */
+  display: flex;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.porto-tab {
+  padding: 9px 36px;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-heading);
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.25s var(--ease-out), color 0.25s var(--ease-out),
+              box-shadow 0.25s var(--ease-out);
+}
+
+.porto-tab:hover {
+  color: var(--text-primary);
+}
+
+.porto-tab.active {
+  background: #E2E2E2;
+  color: var(--text-primary);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.porto-tab.active:hover {
+  background: #D5D5D5;
+}
+
+/* ── Tab Panels ── */
+.porto-tab-panel {
+  display: none;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+}
+
+.porto-tab-panel.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Tools Grid ── */
+.tools-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 32px;
+}
+
+.tool-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 24px 16px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-soft);
+  cursor: default;
+  width: 130px;
+  flex: 0 0 130px;
+  transition: transform 0.28s var(--ease-out), box-shadow 0.28s var(--ease-out);
+  will-change: transform;
+}
+
+.tool-card:hover {
+  transform: translateY(-5px) scale(1.03) translateZ(0);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.09);
+}
+
+.tool-logo {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  border-radius: 12px;
+  transition: transform 0.28s var(--ease-out);
+  will-change: transform;
+}
+
+.tool-card:hover .tool-logo {
+  transform: scale(1.1) translateZ(0);
+}
+
+.tool-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.3;
+}
+
 /* Filter Buttons */
 .portofolio-filter {
   display: flex;
@@ -797,6 +909,8 @@ header.scrolled {
   border: 1px solid rgba(0, 0, 0, 0.05);
   cursor: pointer;
   will-change: transform;
+  display: flex;
+  flex-direction: column;
 }
 
 .portofolio-card:hover {
@@ -860,10 +974,11 @@ header.scrolled {
 }
 
 .portofolio-info {
-  padding: 24px;
+  padding: 20px 22px 22px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  background-color: var(--bg-card);
 }
 
 .portofolio-category {
@@ -881,15 +996,36 @@ header.scrolled {
 }
 
 .portofolio-title {
-  font-size: 1.2rem;
-  margin-bottom: 8px;
+  font-size: 1.05rem;
+  margin-bottom: 6px;
   color: var(--text-primary);
   font-weight: 700;
+  line-height: 1.3;
 }
 
 .portofolio-excerpt {
-  font-size: 0.92rem;
+  font-size: 0.875rem;
   color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.portofolio-link {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.5px;
+  transition: color 0.22s var(--ease-out), text-decoration-color 0.22s var(--ease-out), transform 0.22s var(--ease-out);
+  will-change: transform;
+}
+
+.portofolio-link:hover {
+  color: #2563EB;
+  text-decoration-color: #2563EB;
+  transform: translateX(3px) translateZ(0);
 }
 
 
@@ -1181,7 +1317,7 @@ footer {
 @keyframes entranceUp {
   from {
     opacity: 0;
-    transform: translate3d(0, 16px, 0);
+    transform: translate3d(0, 28px, 0);
   }
   to {
     opacity: 1;
@@ -1192,7 +1328,7 @@ footer {
 @keyframes entranceDown {
   from {
     opacity: 0;
-    transform: translate3d(0, -12px, 0);
+    transform: translate3d(0, -18px, 0);
   }
   to {
     opacity: 1;
@@ -1203,7 +1339,7 @@ footer {
 @keyframes entranceLeft {
   from {
     opacity: 0;
-    transform: translate3d(-16px, 0, 0);
+    transform: translate3d(-28px, 0, 0);
   }
   to {
     opacity: 1;
@@ -1214,7 +1350,7 @@ footer {
 @keyframes entranceRight {
   from {
     opacity: 0;
-    transform: translate3d(16px, 0, 0);
+    transform: translate3d(28px, 0, 0);
   }
   to {
     opacity: 1;
@@ -1226,7 +1362,7 @@ footer {
 .hero-entrance {
   animation-fill-mode: both;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-  animation-duration: 0.85s;
+  animation-duration: 1s;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   will-change: opacity, transform;
@@ -1238,50 +1374,63 @@ footer {
 .hero-entrance[data-entrance="left"]  { animation-name: entranceLeft; }
 .hero-entrance[data-entrance="right"] { animation-name: entranceRight; }
 
-.hero-entrance[data-entrance-delay="0"]   { animation-delay: 0.08s; }
-.hero-entrance[data-entrance-delay="100"] { animation-delay: 0.16s; }
-.hero-entrance[data-entrance-delay="150"] { animation-delay: 0.22s; }
-.hero-entrance[data-entrance-delay="200"] { animation-delay: 0.28s; }
-.hero-entrance[data-entrance-delay="250"] { animation-delay: 0.34s; }
-.hero-entrance[data-entrance-delay="300"] { animation-delay: 0.40s; }
-.hero-entrance[data-entrance-delay="350"] { animation-delay: 0.48s; }
-.hero-entrance[data-entrance-delay="400"] { animation-delay: 0.54s; }
+.hero-entrance[data-entrance-delay="0"]   { animation-delay: 0.10s; }
+.hero-entrance[data-entrance-delay="100"] { animation-delay: 0.20s; }
+.hero-entrance[data-entrance-delay="150"] { animation-delay: 0.28s; }
+.hero-entrance[data-entrance-delay="200"] { animation-delay: 0.36s; }
+.hero-entrance[data-entrance-delay="250"] { animation-delay: 0.44s; }
+.hero-entrance[data-entrance-delay="300"] { animation-delay: 0.52s; }
+.hero-entrance[data-entrance-delay="350"] { animation-delay: 0.60s; }
+.hero-entrance[data-entrance-delay="400"] { animation-delay: 0.68s; }
 
 
 /* ── Scroll Reveal System (IntersectionObserver triggers .is-visible) ────── */
 
-/* Base: hidden state for all reveal variants */
+/*
+ * IMPORTANT: transition-delay must live on the HIDDEN state (not only on
+ * .is-visible) so the browser applies it as soon as the class is added.
+ * Setting it only on .is-visible causes the first frame to be un-delayed.
+ */
+
+/* Base hidden state — all reveal elements start invisible */
 [data-reveal] {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   will-change: opacity, transform;
   transition-property: opacity, transform;
   transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-  transition-duration: 0.52s;
+  transition-duration: 0.65s;
+  transition-delay: 0ms; /* default, overridden by delay variants below */
 }
 
-/* Directional variants */
-[data-reveal="up"]    { opacity: 0; transform: translateY(18px); }
-[data-reveal="left"]  { opacity: 0; transform: translateX(-18px); }
-[data-reveal="right"] { opacity: 0; transform: translateX(18px); }
-[data-reveal="scale"] { opacity: 0; transform: scale(0.9); }
+/* Directional variants — define the FROM state */
+[data-reveal="up"]    { opacity: 0; transform: translate3d(0, 24px, 0); }
+[data-reveal="left"]  { opacity: 0; transform: translate3d(-24px, 0, 0); }
+[data-reveal="right"] { opacity: 0; transform: translate3d(24px, 0, 0); }
+[data-reveal="scale"] { opacity: 0; transform: scale3d(0.88, 0.88, 1); }
 [data-reveal="fade"]  { opacity: 0; transform: none; }
 
-/* Visible state: GPU-composited final values */
+/* Visible state — browser transitions FROM above TO this */
 [data-reveal].is-visible {
   opacity: 1;
-  transform: translateY(0) translateZ(0);
+  transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
 }
 
-/* Stagger delays (applied inline from JS or via data-reveal-delay) */
-[data-reveal-delay="0"]   { transition-delay: 0ms; }
-[data-reveal-delay="60"]  { transition-delay: 60ms; }
-[data-reveal-delay="80"]  { transition-delay: 80ms; }
-[data-reveal-delay="100"] { transition-delay: 100ms; }
-[data-reveal-delay="120"] { transition-delay: 120ms; }
-[data-reveal-delay="160"] { transition-delay: 160ms; }
-[data-reveal-delay="180"] { transition-delay: 180ms; }
-[data-reveal-delay="240"] { transition-delay: 240ms; }
-[data-reveal-delay="320"] { transition-delay: 320ms; }
-[data-reveal-delay="400"] { transition-delay: 400ms; }
+/*
+ * Stagger delays — set on [data-reveal-delay] so they apply immediately
+ * when IntersectionObserver adds .is-visible. Both the hidden → visible
+ * AND visible → hidden transitions use the same delay (correct behavior).
+ */
+[data-reveal][data-reveal-delay="0"]   { transition-delay: 0ms; }
+[data-reveal][data-reveal-delay="60"]  { transition-delay: 60ms; }
+[data-reveal][data-reveal-delay="80"]  { transition-delay: 80ms; }
+[data-reveal][data-reveal-delay="100"] { transition-delay: 100ms; }
+[data-reveal][data-reveal-delay="120"] { transition-delay: 120ms; }
+[data-reveal][data-reveal-delay="160"] { transition-delay: 160ms; }
+[data-reveal][data-reveal-delay="180"] { transition-delay: 180ms; }
+[data-reveal][data-reveal-delay="240"] { transition-delay: 240ms; }
+[data-reveal][data-reveal-delay="320"] { transition-delay: 320ms; }
+[data-reveal][data-reveal-delay="400"] { transition-delay: 400ms; }
 
 
 /* ── prefers-reduced-motion: disable all animations ─────────────────────── */
@@ -1557,36 +1706,37 @@ footer {
   }
 
   /* Lighter scroll reveal on mobile: smaller distance, faster, shorter stagger */
-  [data-reveal="up"]    { transform: translateY(10px); }
-  [data-reveal="left"]  { transform: translateX(-10px); }
-  [data-reveal="right"] { transform: translateX(10px); }
-  [data-reveal="scale"] { transform: scale(0.94); }
+  [data-reveal="up"]    { transform: translate3d(0, 14px, 0); }
+  [data-reveal="left"]  { transform: translate3d(-14px, 0, 0); }
+  [data-reveal="right"] { transform: translate3d(14px, 0, 0); }
+  [data-reveal="scale"] { transform: scale3d(0.93, 0.93, 1); }
 
   [data-reveal] {
-    transition-duration: 0.38s;
+    transition-duration: 0.48s;
   }
 
   /* Halve stagger delays on mobile so groups appear faster */
-  [data-reveal-delay="80"]  { transition-delay: 40ms; }
-  [data-reveal-delay="100"] { transition-delay: 50ms; }
-  [data-reveal-delay="120"] { transition-delay: 60ms; }
-  [data-reveal-delay="160"] { transition-delay: 80ms; }
-  [data-reveal-delay="180"] { transition-delay: 90ms; }
-  [data-reveal-delay="240"] { transition-delay: 120ms; }
-  [data-reveal-delay="320"] { transition-delay: 160ms; }
-  [data-reveal-delay="400"] { transition-delay: 200ms; }
+  [data-reveal][data-reveal-delay="60"]  { transition-delay: 30ms; }
+  [data-reveal][data-reveal-delay="80"]  { transition-delay: 40ms; }
+  [data-reveal][data-reveal-delay="100"] { transition-delay: 50ms; }
+  [data-reveal][data-reveal-delay="120"] { transition-delay: 60ms; }
+  [data-reveal][data-reveal-delay="160"] { transition-delay: 80ms; }
+  [data-reveal][data-reveal-delay="180"] { transition-delay: 90ms; }
+  [data-reveal][data-reveal-delay="240"] { transition-delay: 120ms; }
+  [data-reveal][data-reveal-delay="320"] { transition-delay: 160ms; }
+  [data-reveal][data-reveal-delay="400"] { transition-delay: 200ms; }
 
   /* Hero entrance: smooth & lightweight on mobile */
   .hero-entrance {
-    animation-duration: 0.7s;
+    animation-duration: 0.75s;
   }
 
-  .hero-entrance[data-entrance-delay="0"]   { animation-delay: 0.05s; }
-  .hero-entrance[data-entrance-delay="100"] { animation-delay: 0.10s; }
-  .hero-entrance[data-entrance-delay="150"] { animation-delay: 0.15s; }
-  .hero-entrance[data-entrance-delay="200"] { animation-delay: 0.20s; }
-  .hero-entrance[data-entrance-delay="250"] { animation-delay: 0.25s; }
-  .hero-entrance[data-entrance-delay="300"] { animation-delay: 0.30s; }
-  .hero-entrance[data-entrance-delay="350"] { animation-delay: 0.35s; }
-  .hero-entrance[data-entrance-delay="400"] { animation-delay: 0.40s; }
+  .hero-entrance[data-entrance-delay="0"]   { animation-delay: 0.06s; }
+  .hero-entrance[data-entrance-delay="100"] { animation-delay: 0.13s; }
+  .hero-entrance[data-entrance-delay="150"] { animation-delay: 0.19s; }
+  .hero-entrance[data-entrance-delay="200"] { animation-delay: 0.25s; }
+  .hero-entrance[data-entrance-delay="250"] { animation-delay: 0.31s; }
+  .hero-entrance[data-entrance-delay="300"] { animation-delay: 0.37s; }
+  .hero-entrance[data-entrance-delay="350"] { animation-delay: 0.43s; }
+  .hero-entrance[data-entrance-delay="400"] { animation-delay: 0.49s; }
 }
