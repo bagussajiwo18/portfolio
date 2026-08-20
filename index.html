@@ -50,6 +50,12 @@
       <!-- Main Layout Grid / Layers -->
       <div class="hero-main-content">
 
+        <!-- Floating Left Top: Status Badge -->
+        <div class="hero-badge-status hero-entrance" data-entrance="left" data-entrance-delay="200">
+          <span class="status-pulse-dot"></span>
+          <span>Open for freelance & full-time work</span>
+        </div>
+
         <!-- Center Portrait Image -->
         <div class="hero-portrait-wrapper hero-entrance" data-entrance="up" data-entrance-delay="150">
           <img src="assets/images/pp_bagussajiwo.png" alt="Bagus Sajiwo - Portrait" class="hero-portrait-img">
@@ -128,60 +134,120 @@
         <p class="section-subtitle">Berikut beberapa project yang pernah dikembangkan</p>
       </div>
 
-      <!-- Filter Buttons -->
-      <div class="portofolio-filter" data-reveal="up" data-reveal-delay="80">
-        <button class="filter-btn active" data-filter="all">Semua</button>
-        <button class="filter-btn" data-filter="grafis">Grafis</button>
-        <button class="filter-btn" data-filter="web">Web</button>
+      <!-- Tab Buttons -->
+      <div class="porto-tabs" data-reveal="up" data-reveal-delay="80">
+        <button class="porto-tab active" data-tab="projects">Projects</button>
+        <button class="porto-tab" data-tab="tools">Tools</button>
       </div>
 
-      <div class="portofolio-grid">
-        <!-- Project 1: SIMRS ICHA 1 -->
-        <div class="portofolio-card" data-category="grafis" data-reveal="up" data-reveal-delay="0">
-          <div class="portofolio-img">
-            <span class="portofolio-label">Feed</span>
-            <img src="assets/images/portfolio_simrs1.png" alt="UI App Design" />
+      <!-- Tab: Projects -->
+      <div class="porto-tab-panel active" id="tab-projects">
+        <div class="portofolio-grid">
+          <!-- Project 1: SIMRS ICHA 1 -->
+          <div class="portofolio-card" data-reveal="up" data-reveal-delay="0">
+            <div class="portofolio-img">
+              <img src="assets/images/projects/portfolio_simrs1.png" alt="Desain Feed SIMRS ICHA" />
+            </div>
+            <div class="portofolio-info">
+              <h3 class="portofolio-title">Desain Feed</h3>
+              <p class="portofolio-excerpt">Konten media sosial untuk Sistem Informasi Manajemen Rumah Sakit.</p>
+            </div>
+          </div>
+
+          <!-- Project 2: SIMRS ICHA 2 -->
+          <div class="portofolio-card" data-reveal="up" data-reveal-delay="80">
+            <div class="portofolio-img">
+              <img src="assets/images/projects/portfolio_simrs2.png" alt="Promosi SIMRS ICHA" />
+            </div>
+            <div class="portofolio-info">
+              <h3 class="portofolio-title">Desain Feed</h3>
+              <p class="portofolio-excerpt">Visual promosi digital untuk layanan SIMRS pada platform Instagram.</p>
+            </div>
+          </div>
+
+          <!-- Project 3: Go Bananas! -->
+          <div class="portofolio-card" data-reveal="up" data-reveal-delay="160">
+            <div class="portofolio-img">
+              <img src="assets/images/projects/portfolio_logogb.png" alt="Logo Go Bananas!" />
+            </div>
+            <div class="portofolio-info">
+              <h3 class="portofolio-title">Logo Go Bananas!</h3>
+              <p class="portofolio-excerpt">Desain logo modern untuk brand produk makanan Go Bananas!</p>
+            </div>
+          </div>
+
+          <!-- Project 4: Seblak Muahhh -->
+          <div class="portofolio-card" data-reveal="up" data-reveal-delay="240">
+            <div class="portofolio-img">
+              <img src="assets/images/projects/portfolio_seblak.png" alt="Banner Seblak" />
+            </div>
+            <div class="portofolio-info">
+              <h3 class="portofolio-title">Banner Kuliner Seblak</h3>
+              <p class="portofolio-excerpt">Desain banner promosi untuk usaha kuliner Seblak.</p>
+            </div>
+          </div>
+
+          <!-- Project 5: Web Design -->
+          <div class="portofolio-card" data-reveal="up" data-reveal-delay="320">
+            <div class="portofolio-img">
+              <img src="assets/images/projects/portfolio_lpbsdicreat.png" alt="Landing Page" />
+            </div>
+            <div class="portofolio-info">
+              <h3 class="portofolio-title">Landing Page</h3>
+              <p class="portofolio-excerpt">Website jasa desain grafis dengan tampilan responsif dan modern.</p>
+              <a href="https://bsdicreat.vercel.app/" target="_blank" rel="noopener" class="portofolio-link">Lihat di
+                sini</a>
+            </div>
+          </div>
+
+          <!-- Project 5: Web Design -->
+          <div class="portofolio-card" data-reveal="up" data-reveal-delay="400">
+            <div class="portofolio-img">
+              <img src="assets/images/projects/portfolio_lppribadi.png" alt="Landing Page" />
+            </div>
+            <div class="portofolio-info">
+              <h3 class="portofolio-title">Landing Page</h3>
+              <p class="portofolio-excerpt">Portofolio Pribadi menampilkan koleksi proyek dan keahlian yang telah
+                dikembangkan.</p>
+            </div>
           </div>
         </div>
+      </div>
 
-        <!-- Project 2: SIMRS ICHA 2 -->
-        <div class="portofolio-card" data-category="grafis" data-reveal="up" data-reveal-delay="80">
-          <div class="portofolio-img">
-            <span class="portofolio-label">Feed</span>
-            <img src="assets/images/portfolio_simrs2.png" alt="Logo Design" />
-          </div>
-        </div>
+      <!-- Tab: Tools -->
+      <div class="porto-tab-panel" id="tab-tools">
+        <div class="tools-grid">
 
-        <!-- Project 3: Go Bananas! -->
-        <div class="portofolio-card" data-category="grafis" data-reveal="up" data-reveal-delay="160">
-          <div class="portofolio-img">
-            <span class="portofolio-label">Logo</span>
-            <img src="assets/images/portfolio_logogb.png" alt="Graphic Design" />
+          <!-- Adobe Illustrator -->
+          <div class="tool-card">
+            <img class="tool-logo" src="assets/images/tools/icon_illustrator.png" alt="Adobe Illustrator" />
+            <span class="tool-name">Adobe Illustrator</span>
           </div>
-        </div>
 
-        <!-- Project 4: Seblak Muahhh -->
-        <div class="portofolio-card" data-category="grafis" data-reveal="up" data-reveal-delay="240">
-          <div class="portofolio-img">
-            <span class="portofolio-label">Banner</span>
-            <img src="assets/images/portfolio_seblak.png" alt="Graphic Design" />
+          <!-- Adobe Photoshop -->
+          <div class="tool-card">
+            <img class="tool-logo" src="assets/images/tools/icon_photoshop.png" alt="Adobe Photoshop" />
+            <span class="tool-name">Adobe Photoshop</span>
           </div>
-        </div>
 
-        <!-- Project 5: UI APP Design -->
-        <div class="portofolio-card" data-category="web" data-reveal="up" data-reveal-delay="320">
-          <div class="portofolio-img">
-            <span class="portofolio-label">UI APP</span>
-            <img src="assets/images/portfolio_uiapp.png" alt="Web Design" />
+          <!-- Figma -->
+          <div class="tool-card">
+            <img class="tool-logo" src="assets/images/tools/icon_figma.png" alt="Figma" />
+            <span class="tool-name">Figma</span>
           </div>
-        </div>
 
-        <!-- Project 6: Web Design -->
-        <div class="portofolio-card" data-category="web" data-reveal="up" data-reveal-delay="400">
-          <div class="portofolio-img">
-            <span class="portofolio-label">Landing Page</span>
-            <img src="assets/images/portfolio_lanpage.png" alt="Web Design" />
+          <!-- Canva -->
+          <div class="tool-card">
+            <img class="tool-logo" src="assets/images/tools/icon_canva.png" alt="Canva" />
+            <span class="tool-name">Canva</span>
           </div>
+
+          <!-- CapCut -->
+          <div class="tool-card">
+            <img class="tool-logo" src="assets/images/tools/icon_capcut.png" alt="CapCut" />
+            <span class="tool-name">CapCut</span>
+          </div>
+
         </div>
       </div>
     </div>
@@ -303,7 +369,7 @@
     <div class="container">
       <div class="footer-top">
         <!-- Kiri: Info Pribadi -->
-        <div class="footer-col footer-info">
+        <div class="footer-col footer-info" data-reveal="up" data-reveal-delay="0">
           <h4 class="footer-col-title">Bagus Sajiwo</h4>
           <ul class="footer-list">
             <li>
@@ -326,7 +392,7 @@
 
 
         <!-- Kanan: Tautan -->
-        <div class="footer-col">
+        <div class="footer-col" data-reveal="up" data-reveal-delay="100">
           <h4 class="footer-col-title">Tautan</h4>
           <ul class="footer-list">
             <li><a href="#beranda">Beranda</a></li>
