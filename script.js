@@ -52,9 +52,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ── Scroll Reveal (IntersectionObserver) ────────────────────────────────
   // Watches every [data-reveal] element and adds .is-visible when in view.
-  // Stagger delays are handled entirely in CSS via data-reveal-delay.
+  // Stagger delays live in CSS via [data-reveal-delay] selectors.
 
-  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+  const isPhone  = window.matchMedia('(max-width: 480px)').matches;
+  const isTablet = window.matchMedia('(max-width: 768px)').matches;
+
+  // Threshold: how much of the element must be visible before animating in.
+  // rootMargin: negative bottom margin = element must scroll THIS far INTO
+  // the viewport before revealing (creates the satisfying "earn it" effect).
+  const revealThreshold  = isPhone ? 0.04 : isTablet ? 0.07 : 0.12;
+  const revealRootMargin = isPhone ? '0px 0px -10px 0px'
+                         : isTablet ? '0px 0px -30px 0px'
+                         : '0px 0px -60px 0px';
 
   const revealObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
@@ -65,10 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
       observer.unobserve(el); // fire once → detach to save memory
     });
   }, {
-    // Trigger slightly before element reaches the viewport on desktop,
-    // but immediately on mobile (less headroom needed)
-    threshold: isMobile ? 0.05 : 0.1,
-    rootMargin: isMobile ? '0px 0px -20px 0px' : '0px 0px -40px 0px'
+    threshold: revealThreshold,
+    rootMargin: revealRootMargin,
   });
 
   document.querySelectorAll('[data-reveal]').forEach(el => {
@@ -79,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const filterBtns      = document.querySelectorAll('.filter-btn');
   const portofolioCards = document.querySelectorAll('.portofolio-card');
 
-  filterBtns.forEach(btn => {
+  filterBtns.forEach(btn =>{
     btn.addEventListener('click', () => {
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
@@ -109,6 +116,43 @@ document.addEventListener('DOMContentLoaded', () => {
           card.addEventListener('transitionend', onEnd);
         }
       });
+    });
+  });
+
+  // ── Portfolio Tabs (Projects / Tools) ────────────────────────────────────
+  const portoTabs   = document.querySelectorAll('.porto-tab');
+  const tabPanels   = document.querySelectorAll('.porto-tab-panel');
+
+  portoTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.getAttribute('data-tab');
+
+      // Update active tab button
+      portoTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      // Fade out current panel, then switch
+      const currentPanel = document.querySelector('.porto-tab-panel.active');
+      if (currentPanel) {
+        currentPanel.style.opacity   = '0';
+        currentPanel.style.transform = 'translateY(8px)';
+        setTimeout(() => {
+          tabPanels.forEach(p => p.classList.remove('active'));
+          const nextPanel = document.getElementById('tab-' + target);
+          if (nextPanel) {
+            nextPanel.classList.add('active');
+            // Reset inline styles so CSS transition takes over
+            requestAnimationFrame(() => {
+              nextPanel.style.opacity   = '';
+              nextPanel.style.transform = '';
+            });
+          }
+          if (currentPanel !== nextPanel) {
+            currentPanel.style.opacity   = '';
+            currentPanel.style.transform = '';
+          }
+        }, 220);
+      }
     });
   });
 });
