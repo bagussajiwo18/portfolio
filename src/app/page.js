@@ -60,7 +60,7 @@ export default function Home() {
           <div className="about-content">
             <div className="about-text" data-reveal="up" data-reveal-delay="100">
               <p>Saya adalah mahasiswa Sistem Informasi yang memiliki minat pada teknologi, desain grafis, dan digital.
-                Dengan pengalaman di bidang IT Support, Digital Marketing, dan Desain, saya senang mengeksplorasi ide serta
+                Dengan pengalaman di bidang IT Support, Digital Marketing, dan Graphic Design, saya senang mengeksplorasi ide serta
                 mengubahnya menjadi karya yang fungsional dan menarik. Setiap project bagi saya adalah kesempatan untuk terus belajar,
                 berkembang, dan menciptakan sesuatu yang lebih baik.</p>
             </div>
