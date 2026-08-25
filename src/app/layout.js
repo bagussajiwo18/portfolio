@@ -1,10 +1,24 @@
 import "./globals.css";
 
 export const metadata = {
+  metadataBase: new URL('https://bagussajiwo.my.id'),
   title: "Bagus Sajiwo - Portfolio",
   description: "Website Portofolio Pribadi Bagus Sajiwo. Portofolio ini menampilkan proyek yang telah dikembangkan di dunia teknologi informasi.",
+  keywords: ["Bagus Sajiwo", "Website Portfolio", "Website Portofolio Pribadi", "Portofolio Bagus Sajiwo"],
+  authors: [{ name: "Bagus Sajiwo" }],
   verification: {
     google: "GbEgUBMGScaIPsS_4Yu6xvb_Q36WpZ0LRRleQAmLE6U",
+  },
+  openGraph: {
+    title: 'Bagus Sajiwo - Portfolio',
+    description: 'Website Portofolio Pribadi Bagus Sajiwo. Portofolio ini menampilkan proyek yang telah dikembangkan di dunia teknologi informasi.',
+    url: 'https://bagussajiwo.my.id',
+    siteName: 'Bagus Sajiwo Portfolio',
+    locale: 'id_ID',
+    type: 'website',
+  },
+  alternates: {
+    canonical: '/',
   },
   icons: [],
 };

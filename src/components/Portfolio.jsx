@@ -36,7 +36,7 @@ export default function Portfolio() {
             {/* Project 1: SIMRS ICHA 1 */}
             <div className="portofolio-card" data-reveal="up" data-reveal-delay="0">
               <div className="portofolio-img">
-                <img src="/assets/images/projects/portfolio_simrs1.png" alt="Desain Feed SIMRS ICHA" />
+                <Image src="/assets/images/projects/portfolio_simrs1.png" alt="Desain Feed SIMRS ICHA" width={400} height={300} />
               </div>
               <div className="portofolio-info">
                 <h3 className="portofolio-title">Desain Feed</h3>
@@ -47,7 +47,7 @@ export default function Portfolio() {
             {/* Project 2: SIMRS ICHA 2 */}
             <div className="portofolio-card" data-reveal="up" data-reveal-delay="80">
               <div className="portofolio-img">
-                <img src="/assets/images/projects/portfolio_simrs2.png" alt="Promosi SIMRS ICHA" />
+                <Image src="/assets/images/projects/portfolio_simrs2.png" alt="Promosi SIMRS ICHA" width={400} height={300} />
               </div>
               <div className="portofolio-info">
                 <h3 className="portofolio-title">Desain Feed</h3>
@@ -58,7 +58,7 @@ export default function Portfolio() {
             {/* Project 3: Go Bananas! */}
             <div className="portofolio-card" data-reveal="up" data-reveal-delay="160">
               <div className="portofolio-img">
-                <img src="/assets/images/projects/portfolio_logogb.png" alt="Logo Go Bananas!" />
+                <Image src="/assets/images/projects/portfolio_logogb.png" alt="Logo Go Bananas!" width={400} height={300} />
               </div>
               <div className="portofolio-info">
                 <h3 className="portofolio-title">Logo Go Bananas!</h3>
@@ -69,7 +69,7 @@ export default function Portfolio() {
             {/* Project 4: Seblak Muahhh */}
             <div className="portofolio-card" data-reveal="up" data-reveal-delay="240">
               <div className="portofolio-img">
-                <img src="/assets/images/projects/portfolio_seblak.png" alt="Banner Seblak" />
+                <Image src="/assets/images/projects/portfolio_seblak.png" alt="Banner Seblak" width={400} height={300} />
               </div>
               <div className="portofolio-info">
                 <h3 className="portofolio-title">Banner Kuliner Seblak</h3>
@@ -80,7 +80,7 @@ export default function Portfolio() {
             {/* Project 5: Web Design */}
             <div className="portofolio-card" data-reveal="up" data-reveal-delay="320">
               <div className="portofolio-img">
-                <img src="/assets/images/projects/portfolio_lpbsdicreat.png" alt="Landing Page" />
+                <Image src="/assets/images/projects/portfolio_lpbsdicreat.png" alt="Landing Page" width={400} height={300} />
               </div>
               <div className="portofolio-info">
                 <h3 className="portofolio-title">Landing Page</h3>
@@ -92,7 +92,7 @@ export default function Portfolio() {
             {/* Project 6: Web Design */}
             <div className="portofolio-card" data-reveal="up" data-reveal-delay="400">
               <div className="portofolio-img">
-                <img src="/assets/images/projects/portfolio_lppribadi.png" alt="Landing Page" />
+                <Image src="/assets/images/projects/portfolio_lppribadi.png" alt="Landing Page" width={400} height={300} />
               </div>
               <div className="portofolio-info">
                 <h3 className="portofolio-title">Landing Page</h3>
@@ -106,43 +106,43 @@ export default function Portfolio() {
         <div className={`porto-tab-panel ${activeTab === 'tools' ? 'active' : ''}`} id="tab-tools">
           <div className="tools-grid">
             <div className="tool-card">
-              <img className="tool-logo" src="/assets/images/tools/icon_illustrator.png" alt="Adobe Illustrator" />
+              <Image className="tool-logo" src="/assets/images/tools/icon_illustrator.png" alt="Adobe Illustrator" width={64} height={64} />
               <span className="tool-name">Adobe Illustrator</span>
             </div>
             <div className="tool-card">
-              <img className="tool-logo" src="/assets/images/tools/icon_photoshop.png" alt="Adobe Photoshop" />
+              <Image className="tool-logo" src="/assets/images/tools/icon_photoshop.png" alt="Adobe Photoshop" width={64} height={64} />
               <span className="tool-name">Adobe Photoshop</span>
             </div>
             <div className="tool-card">
-              <img className="tool-logo" src="/assets/images/tools/icon_figma.png" alt="Figma" />
+              <Image className="tool-logo" src="/assets/images/tools/icon_figma.png" alt="Figma" width={64} height={64} />
               <span className="tool-name">Figma</span>
             </div>
             <div className="tool-card">
-              <img className="tool-logo" src="/assets/images/tools/icon_canva.png" alt="Canva" />
+              <Image className="tool-logo" src="/assets/images/tools/icon_canva.png" alt="Canva" width={64} height={64} />
               <span className="tool-name">Canva</span>
             </div>
             <div className="tool-card">
-              <img className="tool-logo" src="/assets/images/tools/icon_capcut.png" alt="CapCut" />
+              <Image className="tool-logo" src="/assets/images/tools/icon_capcut.png" alt="CapCut" width={64} height={64} />
               <span className="tool-name">CapCut</span>
             </div>
             <div className="tool-card">
-              <img className="tool-logo" src="/assets/images/tools/icon_vscode.png" alt="Visual Studio Code" />
+              <Image className="tool-logo" src="/assets/images/tools/icon_vscode.png" alt="Visual Studio Code" width={64} height={64} />
               <span className="tool-name">VS Code</span>
             </div>
             <div className="tool-card">
-              <img className="tool-logo" src="/assets/images/tools/icon_github.png" alt="GitHub" />
+              <Image className="tool-logo" src="/assets/images/tools/icon_github.png" alt="GitHub" width={64} height={64} />
               <span className="tool-name">GitHub</span>
             </div>
             <div className="tool-card">
-              <img className="tool-logo" src="/assets/images/tools/icon_vercel.png" alt="Vercel" />
+              <Image className="tool-logo" src="/assets/images/tools/icon_vercel.png" alt="Vercel" width={64} height={64} />
               <span className="tool-name">Vercel</span>
             </div>
             <div className="tool-card">
-              <img className="tool-logo" src="/assets/images/tools/icon_css.png" alt="CSS" />
+              <Image className="tool-logo" src="/assets/images/tools/icon_css.png" alt="CSS" width={64} height={64} />
               <span className="tool-name">CSS</span>
             </div>
             <div className="tool-card">
-              <img className="tool-logo" src="/assets/images/tools/icon_js.png" alt="JavaScript" />
+              <Image className="tool-logo" src="/assets/images/tools/icon_js.png" alt="JavaScript" width={64} height={64} />
               <span className="tool-name">JavaScript</span>
             </div>
           </div>
