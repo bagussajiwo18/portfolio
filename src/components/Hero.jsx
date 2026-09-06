@@ -29,8 +29,16 @@ export default function Hero() {
 
           {/* Center Portrait Image */}
           <div className="hero-portrait-wrapper hero-entrance" data-entrance="up" data-entrance-delay="150">
-            {/* Menggunakan next/image untuk optimasi */}
-            <Image src="/assets/images/pp_bagussajiwo.png" alt="Bagus Sajiwo - Portrait" className="hero-portrait-img" width={400} height={500} priority />
+            {/* Menggunakan next/image untuk optimasi HD */}
+            <Image
+              src="/assets/images/pp_bagussajiwo.png"
+              alt="Bagus Sajiwo - Portrait"
+              className="hero-portrait-img"
+              width={800}
+              height={1000}
+              quality={95}
+              priority
+            />
             <div className="portrait-fade-mask-bottom"></div>
           </div>
 
