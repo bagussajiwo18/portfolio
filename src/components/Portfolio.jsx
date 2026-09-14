@@ -83,7 +83,7 @@ export default function Portfolio() {
                 <Image src="/assets/images/projects/portfolio_lpbsdicreat.png" alt="Landing Page" width={400} height={300} />
               </div>
               <div className="portofolio-info">
-                <h3 className="portofolio-title">Landing Page</h3>
+                <h3 className="portofolio-title">Website</h3>
                 <p className="portofolio-excerpt">Website jasa desain grafis dengan tampilan responsif dan modern.</p>
                 <a href="https://bsdicreat.vercel.app/" target="_blank" rel="noopener noreferrer" className="portofolio-link">Lihat di sini</a>
               </div>
@@ -95,7 +95,7 @@ export default function Portfolio() {
                 <Image src="/assets/images/projects/portfolio_lppribadi.png" alt="Landing Page" width={400} height={300} />
               </div>
               <div className="portofolio-info">
-                <h3 className="portofolio-title">Landing Page</h3>
+                <h3 className="portofolio-title">Website</h3>
                 <p className="portofolio-excerpt">Portofolio Pribadi menampilkan koleksi proyek dan keahlian yang telah dikembangkan.</p>
               </div>
             </div>
